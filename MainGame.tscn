@@ -1,0 +1,109 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Paddle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+[ext_resource path="res://CPU.gd" type="Script" id=5]
+[ext_resource path="res://Ball.gd" type="Script" id=6]
+[ext_resource path="res://bouncymatter.tres" type="PhysicsMaterial" id=7]
+[ext_resource path="res://Goal.tscn" type="PackedScene" id=8]
+[ext_resource path="res://PlayerGoal.gd" type="Script" id=9]
+[ext_resource path="res://Font.tres" type="DynamicFont" id=10]
+[ext_resource path="res://PlayerScore.gd" type="Script" id=11]
+[ext_resource path="res://CPUScore.gd" type="Script" id=12]
+[ext_resource path="res://Start Label.gd" type="Script" id=13]
+
+[node name="MainGame" type="Node2D"]
+
+[node name="CPU Paddle" parent="." instance=ExtResource( 3 )]
+position = Vector2( 155, 60 )
+script = ExtResource( 5 )
+
+[node name="Player Paddle" parent="." instance=ExtResource( 3 )]
+position = Vector2( 5, 60 )
+script = ExtResource( 4 )
+
+[node name="Top Wall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 3 )
+
+[node name="Bottom Wall" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 117 )
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+position = Vector2( 80, 60 )
+mode = 2
+physics_material_override = ExtResource( 7 )
+continuous_cd = 2
+linear_damp = 0.0
+angular_damp = 0.0
+script = ExtResource( 6 )
+
+[node name="Player Goal" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0, 60 )
+script = ExtResource( 9 )
+
+[node name="CPU Goal2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 160, 60 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 50.0
+margin_top = 10.0
+margin_right = 80.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player Score" type="Label" parent="Control"]
+anchor_right = 1.0
+margin_right = -5.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.180392, 0.211765, 0.239216, 1 )
+text = "00"
+align = 2
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="."]
+margin_left = 80.0
+margin_top = 10.0
+margin_right = 110.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CPU Score" type="Label" parent="Control2"]
+margin_left = 5.0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.180392, 0.211765, 0.239216, 1 )
+text = "00"
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start Label" type="Label" parent="."]
+margin_left = 30.0
+margin_top = 85.0
+margin_right = 130.0
+margin_bottom = 115.0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.54902, 0.603922, 0.631373, 1 )
+text = "Press space to start"
+align = 1
+autowrap = true
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="resetting" from="Ball" to="Start Label" method="_on_Ball_resetting"]
+[connection signal="startting" from="Ball" to="Start Label" method="_on_Ball_startting"]
+[connection signal="body_entered" from="Player Goal" to="Ball" method="_on_Player_Goal_body_entered"]
+[connection signal="body_entered" from="Player Goal" to="Control2/CPU Score" method="_on_Player_Goal_body_entered"]
+[connection signal="body_entered" from="CPU Goal2" to="Ball" method="_on_CPU_Goal2_body_entered"]
+[connection signal="body_entered" from="CPU Goal2" to="Control/Player Score" method="_on_CPU_Goal2_body_entered"]
