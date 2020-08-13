@@ -1,8 +1,6 @@
 extends RigidBody2D
 
-var speed = 124
-# Changey McChangington II
-
+var speed = 110 # Changed from 100 by Vinny
 var direction = Vector2()
 
 var origin = Vector2(80,60)
@@ -64,3 +62,6 @@ func _on_Player_Goal_body_entered(body):
 func _on_CPU_Goal2_body_entered(body):
 	reset = true
 	emit_signal("resetting")
+
+# This is meaningless commenting purely for testing the result
+# on the git repository... ~Vinny
