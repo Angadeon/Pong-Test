@@ -1,6 +1,8 @@
 extends RigidBody2D
 
-var speed = 100
+var speed = 120
+# Changey McChangington II
+
 var direction = Vector2()
 
 var origin = Vector2(80,60)
