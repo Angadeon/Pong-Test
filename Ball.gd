@@ -1,6 +1,7 @@
 extends RigidBody2D
 
-var speed = 110 # Changed from 100 by Vinny
+var speed = 98 # Changed from 110 by Isq
+
 var direction = Vector2()
 
 var origin = Vector2(80,60)
